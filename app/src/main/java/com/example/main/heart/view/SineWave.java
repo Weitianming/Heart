@@ -5,69 +5,63 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
+import com.example.main.heart.util.Util;
+
 public class SineWave extends View {
-	int[] datas = new int[10]; // �������ʮ����¼
-	private Paint mPaint = null;
+    int[] datas = new int[10]; //
+    private Paint mPaint = null;
 
-	int centerStartingX, centerStartingY; // ������
-	int centerEndX, centerEndY; // ����յ�
-	double ScaleX, ScaleY; // �̶ȼ��
+    int centerStartingX, centerStartingY; //
+    int centerEndX, centerEndY; //
+    double ScaleX, ScaleY; //
 
-	public SineWave(Context context) {
-		super(context);
-		mPaint = new Paint();
-		mPaint.setAntiAlias(true);
-		mPaint.setColor(Color.GREEN);
-		mPaint.setAlpha(200);
-		mPaint.setStrokeWidth(5);
-	}
+    public SineWave(Context context) {
+        super(context);
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.GREEN);
+        mPaint.setAlpha(200);
+        mPaint.setStrokeWidth(5);
+    }
 
-	public SineWave(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		mPaint = new Paint();
-		mPaint.setAntiAlias(true);
-		mPaint.setColor(Color.GREEN);
-		mPaint.setAlpha(200);
-		mPaint.setStrokeWidth(5);
-	}
+    public SineWave(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.GREEN);
+        mPaint.setAlpha(200);
+        mPaint.setStrokeWidth(5);
+    }
 
-	public void Set(int frequency) {
-		for (int i = 0; i < datas.length - 1; i++) {
-			datas[i] = datas[i + 1];
-		}
-		datas[datas.length - 1] = frequency;
-	}
+    public void Set(int frequency) {
+        for (int i = 0; i < datas.length - 1; i++) {
+            datas[i] = datas[i + 1];
+        }
+        datas[datas.length - 1] = frequency;
+    }
 
-	/**
-	 * ��������ͼ
-	 */
-	@Override
-	protected void onDraw(Canvas canvas) {
-//		Log.e("�����", "" + datas[datas.length - 1]);
-		// Log.e("���", "" + Util.ScaleY);
-		// Log.e("���", "" + Util.spacingY);
-		// Log.e("Y���", "" + Util.spacingY*datas[datas.length - 1]);
+    @Override
+    protected void onDraw(Canvas canvas) {
 
-		centerStartingX = Util.centerStartingX;
+        centerStartingX = Util.centerStartingX;
 
-		for (int i = 0; i < datas.length - 1; i++) {
+        for (int i = 0; i < datas.length - 1; i++) {
 
-			centerStartingX += Util.ScaleX;
-			canvas.drawLine(centerStartingX, (float) (Util.core - datas[i]
-					* Util.spacingY), (float) (centerStartingX + Util.ScaleX),
-					(float) (Util.core - datas[i + 1] * Util.spacingY), mPaint);
-			canvas.drawText("" + datas[i + 1],
-					(float) (centerStartingX + Util.ScaleX)-20,
-					(float) (Util.core - datas[i + 1] * Util.spacingY), mPaint);
-		}
+            centerStartingX += Util.ScaleX;
+            canvas.drawLine(centerStartingX, (float) (Util.core - datas[i]
+                            * Util.spacingY), (float) (centerStartingX + Util.ScaleX),
+                    (float) (Util.core - datas[i + 1] * Util.spacingY), mPaint);
+            canvas.drawText("" + datas[i + 1],
+                    (float) (centerStartingX + Util.ScaleX) - 20,
+                    (float) (Util.core - datas[i + 1] * Util.spacingY), mPaint);
+        }
 
-	}
+    }
 
-	public void reFresh() {
-		this.invalidate();
-	}
+    public void reFresh() {
+        this.invalidate();
+    }
 
 }
